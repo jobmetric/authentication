@@ -1,0 +1,45 @@
+{
+    "name": "jobmetric/authentication",
+    "description": "This is a Laravel authentication package that can add user-side login forms to Laravel.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Majid Mohammadian",
+            "email": "majeedmohammadian@gmail.com",
+            "homepage": "https://www.linkedin.com/in/majidmohammadian/",
+            "role": "Full Stack Developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.1",
+        "ext-json": "*",
+        "laravel/framework": "^9.19",
+        "spatie/laravel-data": "^2.1",
+        "jobmetric/global-variable": "*"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
+        "psr-4": {
+            "JobMetric\\Authentication\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JobMetric\\Authentication\\Providers\\AuthenticationServiceProvider"
+            ],
+            "aliases": {
+                "Authentication": "JobMetric\\Authentication\\Facades\\AuthenticationService"
+            }
+        }
+    },
+    "minimum-stability" : "stable",
+    "support": {
+        "issues": "https://github.com/jobmetric/authentication/issues",
+        "forum": "https://twitter.com/jobmetric",
+        "source": "https://github.com/jobmetric/authentication"
+    }
+}
