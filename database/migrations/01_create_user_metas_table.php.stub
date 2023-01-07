@@ -1,0 +1,43 @@
+<?php
+
+use App\Models\User;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
+    {
+        /**
+         * This table does not have editing operations.
+         * It is deleted and added again.
+         */
+        Schema::create('user_metas', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('user_id')->index()
+                ->references('id')->on((new User)->getTable());
+
+            $table->string('key')->index();
+            $table->text('value')->nullable()->default(null);
+            $table->boolean('is_json')->default(false)->comment('If the array was in the value field -> is_json = true');
+
+            $table->dateTime('created_at');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('user_metas');
+    }
+};

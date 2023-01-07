@@ -1,0 +1,43 @@
+<?php
+
+use App\Models\UserGroup;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
+    {
+        Schema::create('user_group_paths', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('user_group_id')->index()
+                ->references('id')->on((new UserGroup)->getTable());
+
+            $table->foreignId('path_id')->index()
+                ->references('id')->on((new UserGroup)->getTable());
+
+            $table->unsignedInteger('level');
+
+            $table->unique([
+                'user_group_id',
+                'path_id'
+            ], 'USER_GROUP_PATH_UNIQUE_KEY');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('user_group_paths');
+    }
+};
