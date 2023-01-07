@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up(): void
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable()->index();
+            /**
+             * after get firstname and lastname in user meta -> combine in field
+             */
+
+            $table->string('email')->nullable()->unique();
+            $table->string('mobile_prefix')->nullable()->index();
+            $table->string('mobile')->nullable()->index();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('mobile_verified_at')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->unique([
+                'mobile_prefix',
+                'mobile',
+            ], 'MOBILE_UNIQUE');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('users');
+    }
+};
